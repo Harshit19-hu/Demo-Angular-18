@@ -1,1 +1,109 @@
-/* You can add global styles to this file, and also import other style files */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+.fas {
+  font-family: 'Font Awesome 5 Free', 'Font Awesome', sans-serif !important;
+}
+
+.fa,
+.fas,
+.far,
+.fal,
+.fad {
+  font-family: 'Font Awesome 5 Free', 'Font Awesome', sans-serif !important;
+}
+
+body {
+  font-family: 'Mulish', sans-serif;
+}
+
+//common class
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+//buttons
+.btn {
+  padding: 0.625em 1em;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #090909;
+
+  &.icon-btn {
+    background: #fff;
+    border: 2px solid #ebecf0;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #8054da;
+      color: #ffffff;
+      border-color: #8054da;
+    }
+
+  }
+
+  &.btn-solid {
+    background-color: #8054da;
+    color: #ffffff;
+    border-color: #8054da;
+    border-radius: 8px;
+
+    &.red {
+      background-color: rgb(208, 80, 80);
+      color: #ffffff;
+      border-color: rgb(208, 80, 80)
+    }
+  }
+}
+
+.menu-button {
+  opacity: .8;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+// popup
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  width: 40vw;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.actions button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #f0f0f0;
+}

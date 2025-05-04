@@ -1,0 +1,156 @@
+<!-- team-table.component.html -->
+<div class="team-table-container">
+    <div class="table-header">
+        <h2 class="title user-count">Team members&nbsp; <span class="purple-text" *ngIf="apiData">{{ apiData?.grid_data.length }} users</span></h2>
+        <div class="menu-dots">
+            <button class="menu-button"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="team-table">
+            <thead>
+                <tr>
+                    <th class="checkbox-column">
+                        <input type="checkbox" [checked]="selectAll" (change)="toggleSelectAll()"
+                            aria-label="Select all members">
+                    </th>
+                    @for (column of apiData.grid_columns; track column.id) {
+                    <th class="status-column">{{ column.column_name }}</th>
+                    }
+                    <th class="actions-column"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let member of apiData.grid_data">
+                    <td class="checkbox-column">
+                        <input type="checkbox" [checked]="isMemberSelected(member.id)"
+                            (change)="toggleMemberSelection(member.id)">
+                    </td>
+                    <td class="name-column">
+                        <div class="user-info">
+                            <div class="avatar" *ngIf="member.avatar || member.initials">
+                                <img *ngIf="member.avatar" [src]="member.avatar" [alt]="member.name">
+                                <div *ngIf="!member.avatar && member.initials" class="initials">{{ member.initials }}
+                                </div>
+                            </div>
+                            <div class="user-details">
+                                <div class="d-flex ">
+                                    <img src="https://i.pravatar.cc/40" alt="Mark's profile picture" class="user-avatar" />
+                                    <div>
+                                        <div class="user-name">{{ member.name.first_name + ' ' + member.name.last_name}}</div>
+                                        <div class="user-username">{{ member.name.handle }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="status-column">
+                        <span class="status-badge" [ngClass]="member.status.toLowerCase()">
+                            <span class="status-dot" *ngIf="member.status === 'Customer'"></span>
+                            <span class="status-dot churned" *ngIf="member.status === 'Churned'"></span>
+                            {{ member.status }}
+                        </span>
+                    </td>
+                    <td class="role-column">{{ member.role }}</td>
+                    <td class="license-column">
+                        <div class="license-bar-container">
+                            <div class="license-bar" [style.width.%]="member.license_used"></div>
+                        </div>
+                        <span class="license-percentage">{{ member.license_used }}%</span>
+                    </td>
+                    <td class="teams-column">
+                        <div class="teams-badges">
+                            <span class="team-badge" *ngFor="let team of member.teams">{{ team.value }}</span>
+                        </div>
+                    </td>
+                    <td class="actions-column">
+                        <div class="d-flex">
+                            <button class="action-button delete" aria-label="Delete member" (click)="openDeletDialog(member)">
+                                <span class="icon" title="Delete"><i class="fa-solid fa-trash-can"></i></span>
+                            </button>
+                            <button class="action-button edit" aria-label="Edit member" (click)="editTeamMember(member)">
+                                <span class="icon" title="Edit"><i class="fa-solid fa-pencil"></i></span>
+                            </button>
+                        </div>
+                       
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- this is not working i have just pust this for dispay -->
+        <div class="pagination">
+            <button type="button" class="btn icon-btn" aria-label="Customize dashboard"><i class="fa-solid fa-arrow-left"></i>&nbsp; previous</button>
+            <div class="d-flex">
+                <span>1</span>
+                <span>2</span>
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+                <span>8</span>
+                <span>9</span>
+            </div>
+            <button type="button" class="btn icon-btn" aria-label="Customize dashboard">Next&nbsp;<i class="fa-solid fa-arrow-right"></i></button>
+
+        </div>
+    </div>
+</div>
+
+<div class="overlay" *ngIf="isDialogVisible" (click)="toggleConfirmDialog()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>Are you sure you want to remove<br> {{currentMember.name.first_name + ' ' + currentMember.name.last_name}}</h2>
+      <div class="actions">
+        <button type="button" class="btn icon-btn" (click)="toggleConfirmDialog()">Cancel</button>
+        <button type="button" class="btn btn-solid red" (click)="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" *ngIf="editDialog" (click)="toggleEditDialog()">
+    <div class="modal" (click)="$event.stopPropagation()">
+        <div class="user-card">
+            <h2>User Details</h2>
+          
+            <div class="detail-row">
+              <span class="label">First Name:</span>
+              <span class="value">{{currentMember.name.first_name}}</span>
+            </div>
+          
+            <div class="detail-row">
+              <span class="label">Last Name:</span>
+              <span class="value">{{currentMember.name.last_name}}</span>
+            </div>
+          
+            <div class="detail-row">
+              <span class="label">Handle:</span>
+              <span class="value">{{currentMember.name.handle}}</span>
+            </div>
+        
+          
+            <div class="detail-row">
+              <span class="label">Status:</span>
+              <span class="value">{{currentMember.status}}</span>
+            </div>
+          
+            <div class="detail-row">
+              <span class="label">Role:</span>
+              <span class="value">{{currentMember.role}}</span>
+            </div>
+          
+            <div class="detail-row">
+              <span class="label">License Used:</span>
+              <span class="value">{{currentMember.license_used}}</span>
+            </div>
+          
+            <div class="detail-row">
+              <span class="label">Teams:</span>
+              <div class="teams">
+                <span class="badge" *ngFor="let team of currentMember.teams">{{team.value}}</span>
+              </div>
+            </div>
+          </div>
+                <div class="actions">
+        <button type="button" class="btn btn-solid red" (click)="toggleEditDialog()">Edit</button>
+      </div>
+    </div>
+  </div>

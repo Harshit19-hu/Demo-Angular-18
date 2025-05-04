@@ -1,0 +1,80 @@
+<main *ngIf="!isLoading" class="dashboard-container">
+  <!-- Header Section -->
+  <header class="dashboard-header" aria-labelledby="dashboard-heading">
+    <h1 id="dashboard-heading" class="welcome-text">Welcome back, Mark harshit</h1>
+    <div class="action-buttons">
+      <button type="button" class="btn icon-btn" aria-label="Customize dashboard"><i
+          class="fa-solid fa-list-ul"></i>&nbsp; Customize</button>&nbsp;
+      <button type="button" class="btn icon-btn" aria-label="Export dashboard data"><i
+          class="fas fa-thin fa-cloud-arrow-down"></i>&nbsp;Export</button>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Grid -->
+  <section class="dashboard-report">
+
+    <!-- Vendor Breakdown -->
+    <div class="Breakdown-card" aria-labelledby="vendor-breakdown-heading">
+      <button class="menu-button"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+
+      <header class="vendor-header d-flex">
+        <img src="https://i.pravatar.cc/40" alt="Mark's profile picture" class="user-avatar" />
+        <div>
+          <h5 id="vendor-breakdown-heading" class="card-title">Vendor breakdown</h5>
+          <p class="card-subtitle">Keep track of vendors and their security ratings.</p>
+        </div>
+      </header>
+      <hr>
+      <div class="chart-sec" role="img" aria-label="Vendor breakdown chart will appear here">
+        <app-security-rating-chart></app-security-rating-chart>
+      </div>
+      <hr>
+      <div class="report-btn-container d-flex">
+        <button type="button" class="btn icon-btn" aria-label="Customize dashboard"> View full report</button>&nbsp;
+
+      </div>
+    </div>
+
+    <!-- Vendors Monitored -->
+    <div class="monitored-card" aria-labelledby="vendors-monitored-heading">
+      <button class="menu-button"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+
+      <section class="status-content">
+        <header class="status-header d-flex">
+          <div>
+            <h5 id="vendor-breakdown-heading" class="card-title">Vendor breakdown</h5>
+            <p class="card-subtitle">You're using 80% of available spots.</p>
+          </div>
+        </header>
+        <hr>
+        <div class="gauge-placeholder" role="img" aria-label="Gauge showing 240 vendors with 10% increase">
+          <div class="main-gauge">
+            <app-semi-circular-chart [percent]="65" [radius]="80" [stroke]="12" color="#3f51b5"
+              bgColor="#e0e0e0"></app-semi-circular-chart>
+
+
+            <div class="gauge-center">
+              <h2>240</h2>
+            </div>
+          </div>
+          <span class="growth-st"><i class="fa-solid fa-turn-up"></i>&nbsp;10%</span>
+
+
+          <p class="status-warning" role="alert"><b>You’ve almost reached your limit</b></p>
+          <p class="status-desc">
+            You have used 80% of your available spots. Upgrade your plan to monitor more vendors.
+
+          </p>
+        </div>
+      </section>
+      <hr>
+      <div class="report-btn-container d-flex">
+        <button type="button" class="upgrade-button btn icon-btn" aria-label="Upgrade your monitoring plan">⚡ Upgrade
+          plan</button>
+      </div>
+    </div>
+
+  </section>
+</main>
+<app-team-members *ngIf="!isLoading"></app-team-members>
+<app-loader [isLoading]="isLoading" [loaderMassage]="loaderMassage"></app-loader>

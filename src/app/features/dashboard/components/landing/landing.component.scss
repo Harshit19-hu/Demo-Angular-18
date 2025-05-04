@@ -1,0 +1,124 @@
+
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-report {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.2rem;
+  margin-bottom: 1.5rem;
+
+  hr {
+    border: 1px solid #ebecf0;
+  }
+
+  .Breakdown-card {
+    position: relative;
+    width: 68%;
+    border: 2px solid #ebecf0;
+    border-radius: 8px;
+
+    .vendor-header {
+      padding: 1rem 1rem 1rem 2rem;
+
+      img {
+        border-radius: 50%;
+      }
+
+      div {
+        padding: 0.25rem 1.5rem;
+
+        h5 {
+          font-size: 1.25rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .chart-sec {
+      padding: 1rem;
+      // max-height: 10rem;
+    }
+
+    .report-btn-container {
+      padding: 0.75rem 1rem;
+      justify-content: flex-end;
+    }
+  }
+
+  .monitored-card {
+    position: relative;
+    width: 30%;
+    border: 2px solid #ebecf0;
+    border-radius: 8px;
+
+    .status-content {
+      .status-header {
+        padding: 1rem;
+
+        div {
+          padding: 0.25rem 0.2rem;
+
+          h5 {
+            font-size: 1.25rem;
+          }
+
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .gauge-placeholder {
+        position: relative;
+        height: 16rem;
+        padding: 1rem;
+
+        .main-gauge {
+          position: relative;
+          padding-right: 4rem;
+
+          .gauge-center {
+            position: absolute;
+            top: 55%;
+            left: 35%;
+          }
+        }
+
+        .growth-st {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          color: green;
+
+          i {
+            color: green;
+            transform: rotate(40deg);
+          }
+        }
+      }
+
+      .status-desc {
+        font-size: 0.875rem;
+      }
+    }
+
+    .report-btn-container {
+      padding: 0.75rem 1rem;
+      justify-content: flex-end;
+    }
+  }
+
+  .menu-button {
+    position: absolute;
+    right: 1em;
+    top: 0.75em;
+  }
+}
+

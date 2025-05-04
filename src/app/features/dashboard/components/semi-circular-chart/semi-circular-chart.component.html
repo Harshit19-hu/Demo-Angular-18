@@ -1,0 +1,20 @@
+
+<svg [attr.viewBox]="viewBox" [attr.width]="radius * 2" [attr.height]="radius + stroke">
+  <path
+    [attr.d]="'M ' + stroke/2 + ' ' + centerY + ' A ' + radius + ' ' + radius + ', 0, 0, 1, ' + (radius * 2 + stroke/2) + ' ' + centerY"
+    [attr.stroke]="bgColor"
+    [attr.stroke-width]="stroke"
+    fill="none"
+  ></path>
+
+  <path
+    [attr.d]="'M ' + stroke/2 + ' ' + centerY + ' A ' + radius + ' ' + radius + ', 0, 0, 1, ' + (radius * 2 + stroke/2) + ' ' + centerY"
+    [attr.stroke]="color"
+    [attr.stroke-width]="stroke"
+    stroke-linecap="round"
+    fill="none"
+    [attr.stroke-dasharray]="pathLength"
+    [attr.stroke-dashoffset]="pathLength - progressLength"
+    style="transition: stroke-dashoffset 0.5s ease"
+  ></path>
+</svg>
